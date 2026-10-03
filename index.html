@@ -41,7 +41,25 @@
 <iframe id="app" allow="clipboard-write" title="ヒミツの1票"></iframe>
 <script>
   var EXEC_URL = "https://script.google.com/a/macros/rangerjp.com/s/AKfycbya1hH0lRUUIX2vK77qQjK0-_9e06jIsn9mvdQMi8UFTmHQaYWP5tbWAahKzPh1wZqjdA/exec";
-  document.getElementById("app").src = EXEC_URL + location.search;
+  var OWNER_KEY = "himitsu_owner";
+  var params = new URLSearchParams(location.search);
+  var owner = params.get("owner");
+
+  if (owner === "clear") {
+    try { localStorage.removeItem(OWNER_KEY); } catch (e) {}
+    params.delete("owner");
+  } else if (owner) {
+    try { localStorage.setItem(OWNER_KEY, owner); } catch (e) {}
+  } else {
+    var saved = null;
+    try { saved = localStorage.getItem(OWNER_KEY); } catch (e) {}
+    if (saved) {
+      params.set("owner", saved);
+    }
+  }
+
+  var query = params.toString();
+  document.getElementById("app").src = EXEC_URL + (query ? "?" + query : "");
 </script>
 </body>
 </html>

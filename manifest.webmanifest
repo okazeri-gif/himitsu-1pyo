@@ -1,7 +1,6 @@
 {
   "name": "ヒミツの1票",
   "short_name": "ヒミツの1票",
-  "start_url": "./",
   "display": "standalone",
   "background_color": "#1b2a6b",
   "theme_color": "#1b2a6b",
